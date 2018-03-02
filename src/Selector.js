@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class Selector extends Component {
 	render(){
 		return (
-			<div className='book-shelf-change'>
+			<div className='book-shelf-changer'>
 				<select>
 					<option value='none' disabled={true}>Move to ...</option>
 					<option value='currentlyReading'>Currently Reading</option>
