@@ -8,7 +8,7 @@ class App extends Component {
 			<div className="list-books">
             	<header className = "list-books-title" >
             		<h1>MyReads</h1> 	
-				</header> 
+				</header>
 			</div>
 		</div>
         );
