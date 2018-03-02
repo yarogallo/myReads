@@ -4,8 +4,7 @@ import './App.css';
 
 class App extends Component {
     render() {
-        return ( <
-            div >
+        return ( <div>
             <header className = "App-header" >
             <h1 > My Reads </h1> </header> </div>
         );
