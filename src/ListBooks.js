@@ -20,7 +20,7 @@ class ListBooks extends Component {
 				</div>
 					<div className='open-search'>
 						<a>add book</a>
-					</div>
+				</div>
 			</div>
 		);
 	}
