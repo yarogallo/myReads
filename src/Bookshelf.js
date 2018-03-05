@@ -2,23 +2,18 @@ import React, {Component} from 'react';
 import Book from './Book';
 
 class Bookshelf extends Component{
+	
 	render(){
-		const booksInShelf = this.props.books;
-		const bookshelfHeader = this.props.shelfHeader;
+		const {header, books}= this.props;
 		return(
 			<div className="bookshelf">
 				<header>
-					<h2 className="bookshelf-title">{bookshelfHeader}</h2>
+					<h2 className="bookshelf-title">{header}</h2>
 				</header>
 				<div className="bookshelf-books">
 					<ol className="books-grid">
-						{ booksInShelf.map( book => (<li key={book.title}>
-							<Book
-								title={book.title}
-								authors={book.authors}
-								shelf={book.shelf}
-								imgUrl={book.imgUrl}
-							/>
+						{ books.map( book => (<li key={book.id}>
+							<Book book={book}/>
 						</li>)) }
 					</ol>
 				</div>
