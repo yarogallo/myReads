@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Bookshelf from './Bookshelf';
+import {Link} from 'react-router-dom'
 
 class ListBooks extends Component {
 	constructor(){
@@ -31,7 +32,7 @@ class ListBooks extends Component {
 				</div>
 				
 				<div className='open-search'>
-						<a>add book</a>
+						<Link to='/search'>add book</Link>
 				</div>
 			</div>
 		);
