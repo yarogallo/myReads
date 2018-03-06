@@ -13,7 +13,7 @@ class App extends Component {
 			)}/>
 			 
 			 <Route path="/search" render={()=>(
-				 <SearchPage />
+				 <SearchPage onbookchangeshelf={(evt) => { debugger; }} />
 			 )}/>
 			
 		</div>

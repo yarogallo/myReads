@@ -19,6 +19,7 @@ class SearchBooks extends Component  {
 			return;
 		}
 		BooksAPI.search(query).then(queryRelatedBooks => {
+			console.log(queryRelatedBooks)
 			 Array.isArray(queryRelatedBooks) && this.setState({queryRelatedBooks})
 		}).catch((err) => console.log(`There was an error ${err}`))
 	}
