@@ -8,33 +8,58 @@ class ListBooks extends Component {
 	constructor(props){
 		super(props);
 		this.state={
-			currentlyReading:{header:'Currently Reading', books:[]},
-			wantToRead:{header: 'Want To Read', books:[]},
-			read:{header: 'Read', books:[]},
-			bookshelfkeys: ['currentlyReading', 'wantToRead', 'read'],		
+			currentlyReading:[],
+			wantToRead:[],
+			read:[],
+			bookshelfkeys: [ 
+				{header:'Currently Reading', key:'currentlyReading'}, 
+				{header: 'Want To Read', key: 'wantToRead'},
+				{header:'Read', key: 'read'}]		
+		}
+		this.addBooks = this.addBooks.bind(this);
+		this.removeBook = this.removeBook.bind(this);
+		this.onChangeShelf = this.onChangeShelf.bind(this);
+	}
+	
+	changeState(key, obj){
+		if(key === 'currentlyReading'){
+			this.setState({currentlyReading: obj})
+		}
+		if (key === 'wantToRead') {
+			this.setState({wantToRead: obj});
+		}
+		if (key === 'read') {
+			this.setState({read: obj});
 		}
 	}
 	
-	addBooks(key, books){
-		const header = this.state[key].header;
-		
-		if (key === 'currentlyReading'){
-			this.setState((prevState, props)=>({currentlyReading:{ header, books:prevState[key].books.concat(books)}}));
-		}
-		if (key === 'wantToRead'){
-			this.setState((prevState, props)=>({wantToRead:{ header, books:prevState[key].books.concat(books)}}));
-		}	
-		if(key === 'read'){
-			this.setState((prevState, props)=>({read:{ header, books:prevState[key].books.concat(books)}}));
-		}
+	removeBook(book){
+		const key = book.shelf;
+		const index = this.state[key].findIndex( obj => obj.id === book.id );
+		const restBooks = this.state[key].slice(0, index).concat(this.state[key].slice(index + 1));
+		this.changeState(key, restBooks)	
+	}
+	
+	addBooks(key, book){
+		const newBooks = this.state[key].concat(book);
+		book.shelf = key;
+		BooksAPI.update(book,key);	
+		this.changeState(key, newBooks);
+	}
+	
+	onChangeShelf(key, book){
+		if(key !== book.shelf && key !== 'none'){
+			this.removeBook(book);
+			this.addBooks(key, book);			
+		}			
 	}
 	
 	componentDidMount(){
 		BooksAPI.getAll().then(books =>{
-			const [x, y, z, w, r, g, h] = books;
-			this.addBooks('read',[w, r]);
-			this.addBooks('wantToRead',[x, y, z]);
-			this.addBooks('currentlyReading',[g, h]);
+			for(let book of books){
+				const shelf = book.shelf;
+				this.addBooks(shelf, book);
+			}
 		});
 	}
 	
@@ -46,10 +71,11 @@ class ListBooks extends Component {
 				</header>
 		
 				<div className="list-books-content">
-				 {this.state.bookshelfkeys.map(key => (
-					 <Bookshelf key={key}
-					 	header={this.state[key].header}
-						 books={this.state[key].books}
+				 {this.state.bookshelfkeys.map(shelfObj => (
+					 <Bookshelf key={shelfObj.key}
+					 	header={shelfObj.header}
+						 books={this.state[shelfObj.key]}
+						 onSelectShelf={this.onChangeShelf}
 					 />
 				 ))}
 				</div>
