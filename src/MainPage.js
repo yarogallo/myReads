@@ -62,10 +62,10 @@ class ListBooks extends Component {
 				const shelf = book.shelf;
 				this.addBooks(shelf, book);
 			}
+			if (this.props.newBook.book !== null) {
+				this.addBooks(this.props.newBook.key, this.props.newBook.book)
+			}
 		});
-		if (this.props.newBook.book !== null) {
-			this.addBooks(this.props.newBook.key, this.props.newBook.book)
-		}
 	}
 	
 	render(){
