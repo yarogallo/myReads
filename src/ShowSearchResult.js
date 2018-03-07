@@ -1,22 +1,26 @@
-import React, {Component} from 'react';
+import React from 'react';
 import Book from './Book';
+import propTypes from 'prop-types';
 
-class ShowSearchResult extends Component {
-	render(){
-		const {queryRelatedBooks, onSelectShelf} = this.props;
-		return(
-			<div className="search-books-results">
-              	<ol className="books-grid">
-					{queryRelatedBooks.map(book => (
-						<li key={book.id}><Book
-							book={book}
-							onSelectShelf={onSelectShelf}
-						/></li>
-					))}
-				</ol>
-           	</div>
-		);
-	}
+
+const ShowSearchResult = function({queryRelatedBooks, onSelectShelf}){
+	return(
+		<div className="search-books-results">
+            <ol className="books-grid">
+				{queryRelatedBooks.map(book => (
+ 					<li key={book.id}><Book
+ 							book={book}
+ 							onSelectShelf={onSelectShelf}
+ 					/></li>
+ 				))}
+ 			</ol>
+        </div>
+	);
+}
+
+ShowSearchResult.propTypes = {
+	queryRelatedBooks: propTypes.array.isRequired,
+	onSelectShelf: propTypes.func.isRequired
 }
 
 export default ShowSearchResult;
