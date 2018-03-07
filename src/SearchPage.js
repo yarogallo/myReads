@@ -19,7 +19,6 @@ class SearchBooks extends Component  {
 			return;
 		}
 		BooksAPI.search(query).then(queryRelatedBooks => {
-			console.log(queryRelatedBooks)
 			 Array.isArray(queryRelatedBooks) && this.setState({queryRelatedBooks})
 		}).catch((err) => console.log(`There was an error ${err}`))
 	}
@@ -34,7 +33,7 @@ class SearchBooks extends Component  {
 		return(
 			<div className='search-books'>
 				<QueryInnput query={query} onChangeQuery={this.updateState}/>
-				<ShowSearchResult queryRelatedBooks={queryRelatedBooks}/>		
+				<ShowSearchResult queryRelatedBooks={queryRelatedBooks} onSelectShelf={this.props.onSelectShelf}/>		
 			</div>
 		);
 	}

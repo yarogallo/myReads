@@ -7,6 +7,7 @@ class ListBooks extends Component {
 	
 	constructor(props){
 		super(props);
+		
 		this.state={
 			currentlyReading:[],
 			wantToRead:[],
@@ -14,8 +15,9 @@ class ListBooks extends Component {
 			bookshelfkeys: [ 
 				{header:'Currently Reading', key:'currentlyReading'}, 
 				{header: 'Want To Read', key: 'wantToRead'},
-				{header:'Read', key: 'read'}]		
-		}
+				{header:'Read', key: 'read'}],		
+			}
+			
 		this.addBooks = this.addBooks.bind(this);
 		this.removeBook = this.removeBook.bind(this);
 		this.onChangeShelf = this.onChangeShelf.bind(this);
@@ -61,6 +63,9 @@ class ListBooks extends Component {
 				this.addBooks(shelf, book);
 			}
 		});
+		if (this.props.newBook.book !== null) {
+			this.addBooks(this.props.newBook.key, this.props.newBook.book)
+		}
 	}
 	
 	render(){
@@ -69,7 +74,6 @@ class ListBooks extends Component {
             	<header className = "list-books-title" >
             		<h1>MyReads</h1> 	
 				</header>
-		
 				<div className="list-books-content">
 				 {this.state.bookshelfkeys.map(shelfObj => (
 					 <Bookshelf key={shelfObj.key}
