@@ -9,63 +9,84 @@ class ListBooks extends Component {
 		super(props);
 		
 		this.state={
-			currentlyReading:[],
-			wantToRead:[],
-			read:[],
-			bookshelfkeys: [ 
-				{header:'Currently Reading', key:'currentlyReading'}, 
-				{header: 'Want To Read', key: 'wantToRead'},
-				{header:'Read', key: 'read'}],		
+			shelfList: new Map()	
 			}
+		this.state.shelfList.set('currentlyReading', {header: 'Currently Reading', books:new Set()});	
+		this.state.shelfList.set('wantToRead', {header: 'Want to Read', books:new Set()});	
+		this.state.shelfList.set('read', {header: 'Read', books:new Set()});	
 			
 		this.addBooks = this.addBooks.bind(this);
 		this.removeBook = this.removeBook.bind(this);
-		this.onChangeShelf = this.onChangeShelf.bind(this);
+		this.moveBook = this.moveBook.bind(this);
 	}
-	
-	changeState(key, obj){
-		if(key === 'currentlyReading'){
-			this.setState({currentlyReading: obj})
-		}
-		if (key === 'wantToRead') {
-			this.setState({wantToRead: obj});
-		}
-		if (key === 'read') {
-			this.setState({read: obj});
-		}
-	}
-	
+
 	removeBook(book){
 		const key = book.shelf;
-		const index = this.state[key].findIndex( obj => obj.id === book.id );
-		const restBooks = this.state[key].slice(0, index).concat(this.state[key].slice(index + 1));
-		this.changeState(key, restBooks)	
+		if(this.state.shelfList.has(key)){
+			const shelfList = this.state.shelfList;
+			const booksList = shelfList.get(key).books;
+			for(let elem of booksList){
+				if (elem.id === book.id) {
+					booksList.delete(elem);
+				}
+			}
+		this.setState({shelfList});	
+		}	
 	}
 	
 	addBooks(key, book){
-		const newBooks = this.state[key].concat(book);
-		book.shelf = key;
-		BooksAPI.update(book,key);	
-		this.changeState(key, newBooks);
+		const shelfList = this.state.shelfList;
+		shelfList.get(key).books.add(book);
+		book.shelf = key;	
+		BooksAPI.update(book,key);
+		this.setState({shelfList});
 	}
 	
-	onChangeShelf(key, book){
+	moveBook(key, book){
 		if(key !== book.shelf && key !== 'none'){
 			this.removeBook(book);
 			this.addBooks(key, book);			
 		}			
 	}
 	
+	bookIsInAnyShelf(book){
+		const shelfKeys = this.state.shelfList.keys();
+		for(let key of shelfKeys){
+			const shelf = this.state.shelfList.get(key).books;
+			for(let bookshelf of shelf){
+				if(bookshelf.id === book.id){
+					window.alert(`${book.title} is already in the library`);
+					return true;
+				}
+			}
+		}		
+		return false;	
+	}
+	
 	componentDidMount(){
 		BooksAPI.getAll().then(books =>{
 			for(let book of books){
-				const shelf = book.shelf;
-				this.addBooks(shelf, book);
+				this.addBooks(book.shelf, book);
 			}
 			if (this.props.newBook.book !== null) {
-				this.addBooks(this.props.newBook.key, this.props.newBook.book)
+				const {key, book} = this.props.newBook
+				this.bookIsInAnyShelf(book) || this.addBooks(key, book)
 			}
 		});
+	}
+	
+	createBookshelf(){
+		const allShelf = [];
+		this.state.shelfList.forEach( (value, key) =>{
+			allShelf.push((
+				<Bookshelf 
+					key= {key}
+					header= {value.header} 
+					books={Array.from(value.books)}  
+					onSelectShelf={this.moveBook}
+				/>))
+		})
+		return allShelf;
 	}
 	
 	render(){
@@ -75,13 +96,7 @@ class ListBooks extends Component {
             		<h1>MyReads</h1> 	
 				</header>
 				<div className="list-books-content">
-				 {this.state.bookshelfkeys.map(shelfObj => (
-					 <Bookshelf key={shelfObj.key}
-					 	header={shelfObj.header}
-						 books={this.state[shelfObj.key]}
-						 onSelectShelf={this.onChangeShelf}
-					 />
-				 ))}
+				 {[...this.createBookshelf()]}
 				</div>
 				
 				<div className='open-search'>
