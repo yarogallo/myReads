@@ -31,6 +31,7 @@ class ListBooks extends Component {
 				}
 			}
 		this.setState({shelfList});	
+		BooksAPI.update(book, 'none')
 		}	
 	}
 	
@@ -84,6 +85,7 @@ class ListBooks extends Component {
 					header= {value.header} 
 					books={Array.from(value.books)}  
 					onSelectShelf={this.moveBook}
+					removeBook={this.removeBook}
 				/>))
 		})
 		return allShelf;

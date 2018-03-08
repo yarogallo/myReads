@@ -2,7 +2,7 @@ import React from 'react';
 import Selector from './Selector';
 import propTypes from 'prop-types'
 
-const Book = function({book, onSelectShelf}){
+const Book = function({book, onSelectShelf, removeBook}){
 	const title = book.title;
 	const authors = book.authors || ['No authors to show'];
 	const imageLink = book.imageLinks && book.imageLinks.smallThumbnail;
@@ -13,9 +13,17 @@ const Book = function({book, onSelectShelf}){
 		 		evt.preventDefault();
 			}
 	
+	const handleDeleteBook = function(evt, book){
+		if(evt.target.tagName === 'BUTTON'){
+			removeBook(book);
+		}
+		evt.stopPropagation();
+	} 
+	
 	return (
-		<div className='book' onChange={(evt) => handleSelectShelf(evt, book)}>
+		<div className='book' onChange={(evt) => handleSelectShelf(evt, book)} onClick={(evt)=>{handleDeleteBook(evt, book)}}>
  				<div className='book-top'>
+				 	<button className='delete-button'></button>
 					<div className='book-cover' style={{backgroundImage : `url("${imageLink}")`}}></div>
  					<Selector shelf={shelf}/>		
  				</div>

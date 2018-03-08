@@ -165,7 +165,7 @@ html, body, .root {
   
   .book-cover {
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-	background: #eee url('icons/image.png');
+	background: #eee url('./icons/image.png');
 	width: 158px;
 	height: 193px;
   }
@@ -173,4 +173,15 @@ html, body, .root {
 	padding: 20px 10px 0;
 	text-align: center;
 	font-size: 0.8em;
+  }
+  
+  .delete-button{
+	  position: absolute;
+	  top: 0;
+	  background: #60ac5d url('./icons/delete.svg') no-repeat center;
+	  width: 30px;
+	  height: 30px;
+	  border-radius: 50%;
+	  border: 0;
+	  outline: transparent; 
   }
