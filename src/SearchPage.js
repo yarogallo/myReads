@@ -10,30 +10,31 @@ class SearchBooks extends Component  {
 			queryRelatedBooks:[],
 			query:''
 		}
-		this.updateState = this.updateState.bind(this);
+		this.searchBooks = this.searchBooks.bind(this);
+		this.addBookInShelf = this.addBookInShelf.bind(this);
+		
 	}
 	
 	searchBooks(query){
-		if(!query){
-			this.setState({queryRelatedBooks: []})
-			return;
+		this.setState({query});
+		if(query){
+			BooksAPI.search(query).then(result => {
+				result.error || this.setState({queryRelatedBooks: result});
+			}).catch((err) => console.log(`There was an error ${err}`))
 		}
-		BooksAPI.search(query).then(queryRelatedBooks => {
-			 Array.isArray(queryRelatedBooks) && this.setState({queryRelatedBooks})
-		}).catch((err) => console.log(`There was an error ${err}`))
+		this.setState({queryRelatedBooks:[]});
 	}
 	
-	updateState(query){
-		this.setState({query});
-		this.searchBooks(query)
+	addBookInShelf(book, shelf){
+		BooksAPI.update(book, shelf)
 	}
 	
 	render(){
 		const {queryRelatedBooks, query} = this.state;
 		return(
 			<div className='search-books'>
-				<QueryInnput query={query} onChangeQuery={this.updateState}/>
-				<ShowSearchResult queryRelatedBooks={queryRelatedBooks} onSelectShelf={this.props.onSelectShelf}/>		
+				<QueryInnput query={query} onChangeQuery={(query)=>{this.searchBooks(query)}}/>
+				<ShowSearchResult queryRelatedBooks={queryRelatedBooks} onSelectShelf={(book, shelf)=>{this.addBookInShelf(book, shelf)}}/>		
 			</div>
 		);
 	}

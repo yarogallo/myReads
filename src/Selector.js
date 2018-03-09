@@ -1,15 +1,15 @@
 import React from 'react';
 import propTypes from 'prop-types'
 
-const Selector = function({shelf='noneShelf'}){
+const Selector = function({shelf='none'}){
 	return (
 		<div className='book-shelf-changer'>
 			<select defaultValue={shelf}>
-				<option value='none' disabled={true}>Move to ...</option>
+				<option disabled={true}>Move to ...</option>
 				<option value='currentlyReading'>Currently Reading</option>
 				<option value='wantToRead'>Want to Read</option>
 				<option value='read'>Read</option>
-				<option value='noneShelf'>None</option>
+				<option value='none'>None</option>
 			</select>
 		</div>
 	);

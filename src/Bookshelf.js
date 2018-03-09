@@ -2,7 +2,7 @@ import React from 'react';
 import Book from './Book';
 import propTypes from 'prop-types'
 
-const Bookshelf = function({header, books, onSelectShelf, removeBook}){
+const Bookshelf = function({header, books, onSelectShelf}){
 	return(
 		<div className="bookshelf">
 			<header>
@@ -12,7 +12,7 @@ const Bookshelf = function({header, books, onSelectShelf, removeBook}){
 				<ol className="books-grid">
 					{ books.map( book => (
 						<li key={book.id} >
-							<Book book={book} onSelectShelf={onSelectShelf} removeBook={removeBook}/>
+							<Book book={book} onSelectShelf={onSelectShelf}/>
 						</li>
 					)) }
 				</ol>
@@ -24,7 +24,7 @@ const Bookshelf = function({header, books, onSelectShelf, removeBook}){
 Bookshelf.propTypes = {
 	header: propTypes.string.isRequired,
 	books: propTypes.array.isRequired,
-	onSelectShelf: propTypes.func.isRequired
+	onSelectShelf: propTypes.func
 }
 
 export default Bookshelf;
