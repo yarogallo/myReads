@@ -1,5 +1,5 @@
 import React from 'react';
-import Selector from './Selector';
+import Selector from './Selector/Selector';
 import propTypes from 'prop-types'
 
 const Book = function({book, onSelectShelf, removeBook}){

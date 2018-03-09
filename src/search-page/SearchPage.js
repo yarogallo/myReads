@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import QueryInnput from './QueryInput';
-import ShowSearchResult from './ShowSearchResult';
-import * as BooksAPI from './utils/BooksAPI';
+import QueryInnput from './components/QueryInput';
+import ShowSearchResult from './components/ShowSearchResult';
+import * as BooksAPI from '../utils/BooksAPI';
 
 class SearchBooks extends Component  {
 	constructor(props){
