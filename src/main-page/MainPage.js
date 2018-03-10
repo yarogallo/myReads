@@ -33,11 +33,12 @@ class ListBooks extends Component {
 	
 	moveBook(book, shelf){
 		const currentShelfs = this.state;
-		const index = this.state[book.shelf].findIndex( elem => elem.id === book.id);
+		const index = currentShelfs[book.shelf].findIndex( elem => elem.id === book.id);
 		currentShelfs[book.shelf].splice(index, 1);
 		if (shelf !== 'none') {
 			currentShelfs[shelf].push(book);
 		}
+		book.shelf = shelf;
 		this.setState({currentShelfs});
 		BooksAPI.update(book, shelf);		
 	}
