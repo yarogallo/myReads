@@ -1,7 +1,7 @@
 import React from 'react';
-import propTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
-const Selector = function({shelf='none'}){
+const ShelfSelector = function({ shelf='none' }){
 	return (
 		<div className='book-shelf-changer'>
 			<select defaultValue={shelf}>
@@ -15,8 +15,8 @@ const Selector = function({shelf='none'}){
 	);
 };
 
-Selector.propTypes = {
-	shelf: propTypes.string	
+ShelfSelector.PropTypes = {
+	shelf: PropTypes.string	
 };
 
-export default Selector;
+export default ShelfSelector;

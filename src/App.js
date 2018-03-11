@@ -7,15 +7,14 @@ import SearchBooks from './search-page/SearchPage';
 class App extends Component {
     render() {
         return ( 
-		<div className="app">
-			<Route exact path='/' render={()=>(
-				<ListBooks/>	
-			)}/>
+			<div className="app">
+				<Route exact path='/' render={()=>(
+					<ListBooks/>	
+				)}/>
 	 
-			 <Route path="/search" render={()=>(
-				 <SearchBooks/>
-			 )}/>
-			
+			 	<Route path="/search" render={()=>(
+				 	<SearchBooks/>
+			 	)}/>			
 		</div>
         );
     }

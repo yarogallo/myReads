@@ -4,8 +4,8 @@ import ShowSearchResult from './components/ShowSearchResult';
 import * as BooksAPI from '../utils/BooksAPI';
 
 class SearchBooks extends Component  {
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 		this.state={
 			queryRelatedBooks:[],
 			query:''
@@ -19,6 +19,7 @@ class SearchBooks extends Component  {
 		this.setState({query});
 		if(query){
 			BooksAPI.search(query).then(result => {
+				console.log(result)
 				result.error || this.setState({queryRelatedBooks: result});
 			}).catch((err) => console.log(`There was an error ${err}`))
 		}

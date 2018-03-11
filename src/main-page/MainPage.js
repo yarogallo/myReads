@@ -5,8 +5,8 @@ import * as BooksAPI from '../utils/BooksAPI';
 
 class ListBooks extends Component {	
 	
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 		
 		this.state={
 			 currentlyReading:[],
@@ -33,7 +33,7 @@ class ListBooks extends Component {
 	
 	moveBook(book, shelf){
 		const currentShelfs = this.state;
-		const index = currentShelfs[book.shelf].findIndex( elem => elem.id === book.id);
+		const index = currentShelfs[book.shelf].findIndex( elem => elem.id === book.id );
 		currentShelfs[book.shelf].splice(index, 1);
 		if (shelf !== 'none') {
 			currentShelfs[shelf].push(book);
