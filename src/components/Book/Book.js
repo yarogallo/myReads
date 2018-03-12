@@ -22,7 +22,7 @@ const Book = function({ book, onSelectShelf }) {
 	);
 };
 
-Book.PropTypes = {
+Book.propTypes = {
 	book: PropTypes.object.isRequired,
 	onSelectShelf: PropTypes.func
 };

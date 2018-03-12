@@ -21,7 +21,7 @@ const Bookshelf = function({ header, books, onSelectShelf }){
 	);
 }
 
-Bookshelf.PropTypes = {
+Bookshelf.propTypes = {
 	header: PropTypes.string.isRequired,
 	books: PropTypes.array.isRequired,
 	onSelectShelf: PropTypes.func
