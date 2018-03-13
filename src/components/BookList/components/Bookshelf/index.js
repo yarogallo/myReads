@@ -1,5 +1,5 @@
 import React from 'react';
-import Book from '../../components/Book/Book';
+import Book from '../../../Book/';
 import PropTypes from 'prop-types';
 
 const Bookshelf = function({ header, books, onSelectShelf }){

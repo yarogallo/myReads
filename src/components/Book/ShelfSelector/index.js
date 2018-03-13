@@ -15,7 +15,7 @@ const ShelfSelector = function({ shelf='none' }){
 	);
 };
 
-ShelfSelector.PropTypes = {
+ShelfSelector.propTypes = {
 	shelf: PropTypes.string	
 };
 

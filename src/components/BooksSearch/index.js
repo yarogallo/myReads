@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import QueryInnput from './components/QueryInput';
-import ShowSearchResult from './components/ShowSearchResult';
-import * as BooksAPI from '../utils/BooksAPI';
+import QueryInput from './components/QueryInput';
+import ShowResult from './components/ShowResult';
+import * as BooksAPI from '../../utils/BooksAPI';
+import PropTypes from 'prop-types';
 
 class BooksSearch extends Component  {
 	constructor() {
@@ -25,25 +26,28 @@ class BooksSearch extends Component  {
 						console.log(`There was an error ${result.error}`)
 						return;
 					}
-					
-					this.setState({ queryRelatedBooks: result })
+					const queryRelatedBooks = this.props.actualizeBookShelf ? result.map( book => this.props.actualizeBookShelf(book)) : result;
+					this.setState({ queryRelatedBooks })
 				})
 				.catch((err) => console.log(`There was an error ${err}`))
 		}
 	}
-	
-	addBookInShelf = (book, shelf) => BooksAPI.update(book, shelf);
 		
 	render() {
 		const { queryRelatedBooks, query } = this.state;
 		
 		return(
 			<div className='search-books'>
-				<QueryInnput query={query} onChangeQuery={(query)=>{this.searchBooks(query)}}/>
-				<ShowSearchResult queryRelatedBooks={queryRelatedBooks} onSelectShelf={(book, shelf)=>{this.addBookInShelf(book, shelf)}}/>		
+				<QueryInput query={query} onChangeQuery={(query) => {this.searchBooks(query)}}/>
+				<ShowResult queryRelatedBooks={queryRelatedBooks} onSelectShelf={this.props.onSelectShelf}/>		
 			</div>
 		);
 	}
+}
+
+BooksSearch.propTypes = {
+	onSelectShelf: PropTypes.func,
+	actualizeBookShelf: PropTypes.func,
 }
 
 export default BooksSearch;

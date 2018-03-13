@@ -1,9 +1,9 @@
 import React from 'react';
-import Book from '../../components/Book/Book';
+import Book from '../../../Book/';
 import propTypes from 'prop-types';
 
 
-const ShowSearchResult = function({queryRelatedBooks, onSelectShelf}){
+const ShowResult = function({queryRelatedBooks, onSelectShelf}){
 	return(
 		<div className="search-books-results">
             <ol className="books-grid">
@@ -18,9 +18,9 @@ const ShowSearchResult = function({queryRelatedBooks, onSelectShelf}){
 	);
 }
 
-ShowSearchResult.propTypes = {
+ShowResult.propTypes = {
 	queryRelatedBooks: propTypes.array.isRequired,
-	onSelectShelf: propTypes.func.isRequired
+	onSelectShelf: propTypes.func,
 }
 
-export default ShowSearchResult;
+export default ShowResult;

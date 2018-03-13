@@ -1,6 +1,6 @@
 import React from 'react';
-import ShelfSelector from './ShelfSelector/ShelfSelector';
-import PropTypes from 'prop-types'
+import ShelfSelector from './ShelfSelector';
+import PropTypes from 'prop-types';
 
 const Book = function({ book, onSelectShelf }) {
 	const authors = book.authors || ['No authors to show'];
