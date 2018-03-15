@@ -21,9 +21,13 @@ class App extends Component {
 			wantToRead:[],
 			read:[],	
 		};
+		
+		this.addBook = this.addBook.bind(this);
+		this.moveBook = this.moveBook.bind(this);
+		this.actualizeBookShelf = this.actualizeBookShelf.bind(this);
 	}
 	
-	addBook = (books=[]) => {
+	addBook(books=[]) {
 		const newState = {};
 		
 		books.forEach(book => {
@@ -33,7 +37,7 @@ class App extends Component {
 		this.setState(newState);
 	 }
 	
-	moveBook = (book, shelf) => {
+	moveBook(book, shelf) {
 		const newState = {};
 		
 		book.shelf && (newState[book.shelf] = this.removeBookFromShelf(this.state[book.shelf], book));
@@ -63,7 +67,7 @@ class App extends Component {
 		return currentShelf;
 	}
 	
-	actualizeBookShelf = (book) => {
+	actualizeBookShelf(book) {
 		for(let shelf of shelfList) {
 			const bookShelfIndex = this.state[shelf.key].findIndex( elem => elem.id === book.id );
 			if( bookShelfIndex !== -1){

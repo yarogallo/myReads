@@ -13,7 +13,7 @@ class BooksSearch extends Component  {
 		}
 	}
 	
-	searchBooks = (query) => {
+	searchBooks(query) {
 		this.setState({
 			query,
 			queryRelatedBooks:[]
